@@ -1,3 +1,4 @@
+from binascii import hexlify
 from hashlib import md5, sha1
 from begin import formatters, start
 from cryptography.hazmat.primitives import padding
@@ -58,6 +59,8 @@ def palo_secret_decryptor(secret, master_key=DEFAULT_MASTERKEY):
     if not secret.startswith(b"-AQ=="):
         raise SystemExit("Error: Invalid secret")
     try:
-        print(crypt.decrypt(secret).decode("utf-8"))
+        print("secret: {}".format(crypt.decrypt(secret).decode("utf-8")))
     except ValueError as _:
+        sha1hash = hexlify(b64decode(secret[4:33]))
+        print("sha1: {}".format(sha1hash.decode("utf-8")))
         raise SystemExit("Error: Incorrect Master Key")
