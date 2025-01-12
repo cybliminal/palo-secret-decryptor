@@ -9,7 +9,7 @@ Based on:
 
 ## Installation
 
-```
+```sh
 pip install -r requirements.txt
 ```
 
@@ -21,21 +21,21 @@ Decrypt using the default master key `p1a2l3o4a5l6t7o8`.
 Note `--` is required because the key from the firewall configuration starts
 with a `-`.
 
-```
+```sh
 $ python master_key_decryptor.py -- -AQ==4oaXexPxqJ4g0EWSB1RdFf4eugg=QB2FTzPzPnegOOdK2VtojQ==
 letmein123
 ```
 
 Example of an alternate master key being supplied:
 
-```
+```sh
 $ python master_key_decryptor.py --master-key 1234567812345678 -- -AQ==4oaXexPxqJ4g0EWSB1RdFf4eugg=yicd7NMQ47s6u8/GgByLMQ==
 letmein123
 ```
 
 Example of an incorrect master key being supplied:
 
-```
+```sh
 $ python master_key_decryptor.py --master-key p1a2l3o4a5l6t7o9 --
 -AQ==4oaXexPxqJ4g0EWSB1RdFf4eugg=QB2FTzPzPnegOOdK2VtojQ== Error:
 Incorrect Master Key
