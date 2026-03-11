@@ -1,6 +1,7 @@
 from binascii import hexlify
 from hashlib import md5, sha1
-from begin import formatters, start
+from typing import Annotated
+import typer
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
@@ -8,7 +9,7 @@ from base64 import b64encode, b64decode
 
 # The default master key used by Palo Alto Firewalls
 DEFAULT_MASTERKEY = b"p1a2l3o4a5l6t7o8"
-FORMATTER = formatters.compose(formatters.RawDescription, formatters.RawArguments)
+app = typer.Typer()
 
 
 # Do all the heavy crypto work here
@@ -48,8 +49,11 @@ class PanCrypt:
         return b"-" + v + hash + ct
 
 
-@start(formatter_class=FORMATTER)  # pyright: ignore [reportCallIssue]
-def palo_secret_decryptor(secret, master_key=DEFAULT_MASTERKEY):
+@app.command()
+def palo_secret_decryptor(
+    secret: Annotated[str, typer.Argument(help="Encrypted Palo Alto secret to decrypt")],
+    master_key: Annotated[str, typer.Option(help="Master key for decryption")] = DEFAULT_MASTERKEY.decode(),
+):
     # covert supplied keys to byte strings
     if not isinstance(secret, bytes):
         secret = bytes(secret, "utf-8")
@@ -64,3 +68,7 @@ def palo_secret_decryptor(secret, master_key=DEFAULT_MASTERKEY):
         sha1hash = hexlify(b64decode(secret[4:33]))
         print("sha1: {}".format(sha1hash.decode("utf-8")))
         raise SystemExit("Error: Incorrect Master Key")
+
+
+if __name__ == "__main__":
+    app()
