@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "palo-secret-decryptor"
+version = "1.1.0"
+description = "Utility to decrypt secrets from Palo Alto Networks firewall configurations"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Matthew Flanagan"}
+]
+keywords = ["palo-alto", "firewall", "decryption", "cryptography"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Systems Administration",
+]
+dependencies = [
+    "cryptography>=41.0.0",
+    "cyclopts>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+
+[project.scripts]
+palo-secret-decryptor = "palo_secret_decryptor:app"
+
+[project.urls]
+Homepage = "https://github.com/cybliminal/palo-secret-decryptor"
+Documentation = "https://github.com/cybliminal/palo-secret-decryptor/blob/main/README.md"
+Repository = "https://github.com/cybliminal/palo-secret-decryptor.git"
+Issues = "https://github.com/cybliminal/palo-secret-decryptor/issues"
+
+[tool.setuptools]
+py-modules = ["palo_secret_decryptor"]
+
+[tool.pytest.ini_options]
+python_files = ["test_*.py"]
+norecursedirs = [
+    ".git",
+    ".venv",
+    "venv",
+    "env",
+    "build",
+    "dist",
+    "site-packages",
+]
+
